@@ -19,6 +19,8 @@ jobs:
   release:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/release.yml
+    permissions:
+      contents: write
     with:
       environment: ${{ inputs.environment }}
       version: ${{ inputs.version }}
