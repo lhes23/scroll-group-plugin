@@ -1,0 +1,19 @@
+.horizontal-scroll {
+  overflow: hidden; /* Hide the scrollbar */
+  white-space: nowrap;
+  position: relative;
+}
+
+.horizontal-scroll > * {
+  display: inline-block;
+  animation: scroll-horizontal 10s linear infinite;
+}
+
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

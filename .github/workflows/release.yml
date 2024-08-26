@@ -1,0 +1,49 @@
+name: Release Scroll Group Plugin
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: The workflow environment
+        type: string
+        required: true
+      version:
+        description: The version
+        type: string
+        required: true
+      version_code:
+        description: The version code
+        type: string
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environemt}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Zip the repository contents
+        run: zip -r scroll-group-plugin.zip ./*
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        with:
+          tag_name: "v${{ inputs.version }}"
+          release_name: "v${{ inputs.version }} - ${{ inputs.environment }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload ZIP to GitHub Release
+        uses: actions/upload-release-asset@v1.0.2
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./scroll-group-plugin.zip
+          asset_name: "scroll-group-plugin.zip-v${{ inputs.version }}-${{ inputs.environment }}.zip"
+          asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

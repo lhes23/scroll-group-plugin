@@ -1,0 +1,25 @@
+name: RokuTV CI
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        default: "prod"
+        type: string
+        description: "gha secrets environment"
+        required: false
+      version:
+        type: string
+        required: true
+        description: "the build version of the zip"
+      version_code:
+        type: string
+        required: true
+        description: "the build version of the zip code"
+jobs:
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/release.yaml
+    with:
+      environment: ${{ inputs.environment }}
+      version: ${{ inputs.version }}
+      version_code: ${{ inputs.version_code }}
