@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        default: "prod"
+        default: "alpha"
         type: string
         description: "gha secrets environment"
         required: false
