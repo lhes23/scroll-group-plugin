@@ -1,4 +1,4 @@
-name: RokuTV CI
+name: Scroll Group Plugin CI
 on:
   workflow_dispatch:
     inputs:
