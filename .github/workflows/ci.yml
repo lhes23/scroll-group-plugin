@@ -18,7 +18,7 @@ on:
 jobs:
   release:
     if: ${{ github.event_name == 'workflow_dispatch' }}
-    uses: ./.github/workflows/release.yaml
+    uses: ./.github/workflows/release.yml
     with:
       environment: ${{ inputs.environment }}
       version: ${{ inputs.version }}
